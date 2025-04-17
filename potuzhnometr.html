@@ -10,7 +10,7 @@
       margin: 0;
       padding: 20px;
       background: #000; /* Чёрный фон */
-      color: #fff; /* Белый текст */
+      color: #fff;
       font-family: Arial, sans-serif;
       display: flex;
       justify-content: center;
@@ -20,7 +20,7 @@
     .container {
       background: #333; /* Тёмно-серый контейнер */
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
       width: 90%;
       max-width: 400px;
       padding: 20px;
@@ -40,7 +40,6 @@
     .title {
       font-size: 24px;
       font-weight: bold;
-      color: #fff;
     }
     .model {
       font-size: 16px;
@@ -60,44 +59,55 @@
     .gauge-bar {
       flex: 1;
       height: 20px;
-      background: #555; /* Тёмный фон для полоски */
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 2px;
+      background: #555; /* Тёмная база для линии */
       border-radius: 8px;
       overflow: hidden;
+      position: relative;
     }
-    .gauge-bar .segment {
-      width: 4px;
+    .gauge-fill {
       background: #4CAF50;
-      margin: 0 1px;
-      flex-grow: 1;
+      height: 100%;
+      width: 0%;
+      transition: width 0.1s ease-out;
     }
-    /* Стили для блока с кнопками */
     .display {
       display: flex;
       flex-direction: column;
       align-items: center;
       margin-top: 20px;
     }
-    /* Круглая кнопка для отображения показаний */
+    /* Круглая кнопка с числом и подписью "ПТЖ" */
     .round-display-button {
-      width: 100px;
-      height: 100px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
       border: none;
-      background: #4CAF50;
+      background: #66BB6A; /* Светлее, чем фон контейнера */
       color: #fff;
-      font-size: 28px;
-      font-weight: bold;
-      line-height: 100px;
       cursor: pointer;
       outline: none;
       margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    /* Отличаем число от подписи, текст "ПТЖ" расползается под числом */
+    .round-display-button .value {
+      font-size: 32px;
+      line-height: 1;
+    }
+    .round-display-button .ptz-label {
+      font-size: 16px;
+      margin-top: 5px;
+    }
+    /* Кнопка "Чутливість" */
+    .sensitivity {
+      width: 100%;
+      margin-bottom: 10px;
     }
     .sensitivity button {
-      background: #007BFF;
+      background: #64B5F6;
       border: none;
       padding: 10px 15px;
       color: #fff;
@@ -125,39 +135,53 @@
     <div class="gauge">
       <div class="gauge-icon">😴</div>
       <div class="gauge-bar">
-        <!-- Разметка полоски с сегментами -->
-        <div class="segment"></div>
-        <div class="segment"></div>
-        <div class="segment"></div>
-        <div class="segment"></div>
-        <div class="segment"></div>
-        <div class="segment"></div>
-        <div class="segment"></div>
-        <div class="segment"></div>
-        <div class="segment"></div>
-        <div class="segment"></div>
+        <div class="gauge-fill"></div>
       </div>
       <div class="gauge-icon">💀</div>
     </div>
     <!-- Блок с кнопками -->
     <div class="display">
-      <button class="round-display-button">0 ПТЖ</button>
+      <button class="round-display-button">
+        <span class="value">0</span>
+        <span class="ptz-label">ПТЖ</span>
+      </button>
       <div class="sensitivity">
         <button>Чутливість x1.0</button>
       </div>
     </div>
     <!-- Футер -->
-    <div class="footer">MADE BY DENIDAAR</div>
+    <div class="footer">MADE BY CHIPS</div>
   </div>
   
   <script>
-    // Обработчик нажатия для круглой кнопки с показаниями
+    // Получаем элементы для анимации
     var roundButton = document.querySelector('.round-display-button');
+    var valueSpan = document.querySelector('.round-display-button .value');
+    var gaugeFill = document.querySelector('.gauge-fill');
+
+    // Функция анимации: увеличивает значение от 0 до target (шаг за шагом)
+    function animateValue(target) {
+      let current = 0;
+      let stepDelay = 50; // задержка в 50 мс между шагами
+      let interval = setInterval(function() {
+        if (current < target) {
+          current++;
+          valueSpan.textContent = current; // обновляем цифру
+          gaugeFill.style.width = current + '%'; // обновляем заполнение линии
+        } else {
+          clearInterval(interval);
+        }
+      }, stepDelay);
+    }
+
+    // Обработчик клика по круглой кнопке
     roundButton.addEventListener('click', function() {
       // Генерируем случайное число от 0 до 100
-      var powerValue = Math.floor(Math.random() * 101);
-      // Обновляем текст кнопки
-      roundButton.textContent = powerValue + ' ПТЖ';
+      var targetValue = Math.floor(Math.random() * 101);
+      // Сбрасываем значение и линию заполнения
+      valueSpan.textContent = '0';
+      gaugeFill.style.width = '0%';
+      animateValue(targetValue);
     });
   </script>
 </body>
