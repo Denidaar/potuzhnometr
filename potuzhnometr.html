@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Потужнометр</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 { margin-bottom: 20px; }
+    #powerValue {
+      font-size: 24px;
+      margin: 20px 0;
+    }
+    #meter {
+      width: 80%;
+      height: 30px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Потужнометр</h1>
+  <div id="powerValue">Нажми кнопку, чтобы измерить мощность</div>
+  <!-- Элемент для визуального отображения мощности -->
+  <meter id="meter" min="0" max="100" value="0"></meter><br/>
+  <button id="btnMeasure">Измерить мощность</button>
+
+  <script>
+    // Если мини‑приложение запущено в Telegram, разворачиваем его на весь экран
+    if (window.Telegram && window.Telegram.WebApp) {
+      Telegram.WebApp.expand();
+    }
+
+    // При нажатии на кнопку генерируется случайное значение от 0 до 100
+    document.getElementById('btnMeasure').addEventListener('click', function () {
+      var power = Math.floor(Math.random() * 101);
+      document.getElementById('meter').value = power;
+      document.getElementById('powerValue').textContent = "Мощность: " + power + "%";
+    });
+  </script>
+</body>
+</html>
