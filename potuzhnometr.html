@@ -71,24 +71,30 @@
       margin: 0 1px;
       flex-grow: 1;
     }
+    /* Стили для круглой кнопки с показаниями "0 ПТЖ" */
     .display {
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-evenly;
       margin-top: 20px;
+      flex-wrap: wrap;
     }
-    .display-number {
-      font-size: 48px;
+    .round-display-button {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: none;
+      background: #4CAF50;
+      color: #fff;
+      font-size: 28px;
       font-weight: bold;
-      line-height: 1;
-    }
-    .display-label {
-      font-size: 18px;
-      margin-left: 5px;
-      line-height: 1;
+      line-height: 100px; /* Чтобы текст был по центру по вертикали */
+      cursor: pointer;
+      outline: none;
     }
     .sensitivity {
-      margin-left: 20px;
+      margin-top: 20px;
+      width: 100%;
     }
     .sensitivity button {
       background: #007BFF;
@@ -133,16 +139,15 @@
       </div>
       <div class="gauge-icon">💀</div>
     </div>
-    <!-- Отображение показаний и кнопка -->
+    <!-- Отображение показаний как круглая кнопка и кнопка Чутливість -->
     <div class="display">
-      <div class="display-number">0</div>
-      <div class="display-label">ПТЖ</div>
+      <button class="round-display-button">0 ПТЖ</button>
       <div class="sensitivity">
         <button>Чутливість x1.0</button>
       </div>
     </div>
     <!-- Футер -->
-    <div class="footer">MADE BY DENIDAAR</div>
+    <div class="footer">MADE BY CHIPS</div>
   </div>
 </body>
 </html>
