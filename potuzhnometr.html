@@ -1,50 +1,148 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Потужнометр</title>
   <style>
     body {
-      font-family: sans-serif;
-      text-align: center;
+      margin: 0;
       padding: 20px;
+      background: #f0f0f0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
     }
-    h1 { margin-bottom: 20px; }
-    #powerValue {
+    .container {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 400px;
+      padding: 20px;
+      text-align: center;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 5px;
+    }
+    .header img {
+      width: 30px;
+      height: auto;
+      margin-right: 8px;
+    }
+    .title {
       font-size: 24px;
+      font-weight: bold;
+    }
+    .model {
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 20px;
+    }
+    .gauge {
+      display: flex;
+      align-items: center;
       margin: 20px 0;
     }
-    #meter {
-      width: 80%;
-      height: 30px;
+    .gauge-icon {
+      font-size: 24px;
+      width: 40px;
+      text-align: center;
     }
-    button {
+    .gauge-bar {
+      flex: 1;
+      height: 20px;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .gauge-bar .segment {
+      width: 4px;
+      background: #4CAF50;
+      margin: 0 1px;
+      flex-grow: 1;
+    }
+    .display {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 16px;
+    }
+    .display-number {
+      font-size: 48px;
+      font-weight: bold;
+      line-height: 1;
+    }
+    .display-label {
+      font-size: 18px;
+      margin-left: 5px;
+      line-height: 1;
+    }
+    .sensitivity {
+      margin-left: 20px;
+    }
+    .sensitivity button {
+      background: #007BFF;
+      border: none;
+      padding: 10px 15px;
+      color: #fff;
+      font-size: 14px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: #999;
     }
   </style>
 </head>
 <body>
-  <h1>Потужнометр</h1>
-  <div id="powerValue">Нажми кнопку, чтобы измерить мощность</div>
-  <!-- Элемент для визуального отображения мощности -->
-  <meter id="meter" min="0" max="100" value="0"></meter><br/>
-  <button id="btnMeasure">Измерить мощность</button>
-
-  <script>
-    // Если мини‑приложение запущено в Telegram, разворачиваем его на весь экран
-    if (window.Telegram && window.Telegram.WebApp) {
-      Telegram.WebApp.expand();
-    }
-
-    // При нажатии на кнопку генерируется случайное значение от 0 до 100
-    document.getElementById('btnMeasure').addEventListener('click', function () {
-      var power = Math.floor(Math.random() * 101);
-      document.getElementById('meter').value = power;
-      document.getElementById('powerValue').textContent = "Мощность: " + power + "%";
-    });
-  </script>
+  <div class="container">
+    <!-- Заголовок с флагом и названием -->
+    <div class="header">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Ukraine.svg" alt="Український прапор">
+      <div class="title">Потужнометр</div>
+    </div>
+    <!-- Модель устройства -->
+    <div class="model">ПМ-2025</div>
+    <!-- Горизонтальная линия с эмодзи -->
+    <div class="gauge">
+      <div class="gauge-icon">😴</div>
+      <div class="gauge-bar">
+        <!-- Примерная разметка полоски с сегментами -->
+        <div class="segment"></div>
+        <div class="segment"></div>
+        <div class="segment"></div>
+        <div class="segment"></div>
+        <div class="segment"></div>
+        <div class="segment"></div>
+        <div class="segment"></div>
+        <div class="segment"></div>
+        <div class="segment"></div>
+        <div class="segment"></div>
+      </div>
+      <div class="gauge-icon">💀</div>
+    </div>
+    <!-- Отображение показаний и кнопка -->
+    <div class="display">
+      <div class="display-number">0</div>
+      <div class="display-label">ПТЖ</div>
+      <div class="sensitivity">
+        <button>Чутливість x1.0</button>
+      </div>
+    </div>
+    <!-- Футер -->
+    <div class="footer">MADE BY CHIPS</div>
+  </div>
 </body>
 </html>
